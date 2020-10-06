@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+@model SisManagement.Models.Usuario
+
+<h2 class="text-center">Login</h2>
+<br />
+<div class="container">
+    @using (Html.BeginForm("LoginUser", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">
+                @Html.Label("E-mail")
+                @Html.TextBoxFor(model => model.Email, new { @id="Email", @name="Email"})
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">
+                @Html.Label("Senha")
+                @Html.TextBoxFor(model => model.Senha, new { @id = "Senha", @name = "Senha", @type="password" })
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">
+                <button type="submit">Entrar</button>
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+        <br />
+    }
+</div>
+

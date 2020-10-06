@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="jumbotron">
+    <h1>Sis. Management</h1>
+    <p class="lead">Um sistema para controle de seu estoque, de suas vendas e do seu financeiro</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Vendas</h2>
+        <p>
+            Nessa pagina você poderá inserir, consultar, alterar e excluir vendas, também, poderá
+            tirar relatorios para acompanhar suas vendas.
+        </p>
+        <p>@Html.ActionLink("Ir para Vendas", "Sellings", "Home")</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Compras</h2>
+        <p>Lançe, consulte, altere e insera seus compras aqui, poderá tirar ralatorios para acompanhar seus gastos</p>
+        <p>@Html.ActionLink("Ir para Compras", "Shopping", "Home")</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Financeiro</h2>
+        <p>Acompanhe suas finanças de um jeito muito rapido e prático, veja também previsões de crescimento operacional</p>
+        <p>@Html.ActionLink("Ir para Financeiro", "Finances", "Home")</p>
+    </div>
+</div>

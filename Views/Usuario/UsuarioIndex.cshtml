@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "Usuario | Index";
+}
+
+@model SisManagement.Models.Usuario
+
+<h2 class="text-center">Usuario</h2>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            @Html.Label("Nome:")
+            <p>@ViewBag.UserList[0].Nome</p>
+        </div>
+        <div class="col-sm-2">
+            @Html.Label("Email:")
+            <p>@ViewBag.UserList[0].Email</p>
+        </div>
+        <div class="col-sm-1">
+            @Html.Label("Senha:")
+            <p>@ViewBag.UserList[0].Senha</p>
+        </div>
+        <div class="col-sm-1">
+            @Html.Label("Permissão:")
+            <p>@ViewBag.UserList[0].Permissao</p>
+        </div>
+        <div class="col-sm-2">
+            <center><button onclick="AlterarUsuario(@ViewBag.UserList[0].Id)">Alterar</button></center>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <br /> 
+    @if(@ViewBag.UserList[0].Permissao != "COMUM")  
+    {
+        <br />
+        <hr>
+        <br />
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                @Html.Label("Procurar")
+                @Html.TextBox("Search")
+            </div>
+            <div class="col-sm-2">
+                <button onclick="ListarUsuario()">Buscar</button>
+            </div>
+            <div class="col-sm-2">
+                <button onclick="GoInsertArea()">Inserir Usuario</button>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <br />
+        <hr>
+        <br />
+        <div class="container" id="SearchArea">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="ResultSearch"></div>
+                </div>
+            </div>
+            <br />
+        </div>
+        <div class="container" id="InsertArea" style="display: none">
+            @using (Html.BeginForm("InsertUser", "Usuario", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4">
+                        @Html.Label("Nome:")
+                        @Html.TextBoxFor(model => model.Nome, new { @id="Nome", @name="Nome" })
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.Label("E-mail:")
+                        @Html.TextBoxFor(model => model.Email, new { @id = "Email", @name = "Email" })
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4">
+                        @Html.Label("Senha:")
+                        @Html.TextBoxFor(model => model.Senha, new { @id = "Senha", @name = "Senha" })
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.Label("Permissão:")
+                        @Html.TextBoxFor(model => model.Permissao, new { @id = "Permissao", @name = "Permissao" })
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-2">
+                        <button type="submit">Cadastrar</button>
+                    </div>
+                    <div class="col-sm-5"></div>
+                </div>
+                <br />
+            }
+        </div>
+    }
+</div>
+
+<script>
+    function ListarUsuario() {
+        $("#SearchArea").fadeIn();
+        $("#InsertArea").fadeOut();
+        Search = $("#Search").val();
+        $.post(
+                 "../Usuario/ListarUsuario",
+                 {
+                    Search : Search
+                 }, function (data)
+                 {
+                     if (data != "")
+                     {
+                         $("#ResultSearch").html(data);
+                     }
+                     else
+                     {
+                         alert("Erro");
+                     }
+                 }
+            );
+    }
+
+    function GoInsertArea() {
+        $("#SearchArea").fadeOut();
+        $("#InsertArea").fadeIn();
+    }
+
+    function AlterarUsuario(ID) {
+        $.post(
+                "../Usuario/UsuarioAlter",
+                {
+                    ID : ID
+                }, function (data)
+                {
+                    if (data != 0)
+                    {
+                        window.open("UsuarioAlter.cshtml");
+                    }
+                    else
+                    {
+                        alert("Erro");
+                    }
+                }
+            );
+    }
+</script>
+
